@@ -1,7 +1,7 @@
 const main = document.getElementById("main");
 
 function start() {
-     score = 0;
+  score = 0;
   const difficulty = document.getElementById("difficulty").value;
   const url =
     "https://opentdb.com/api.php?amount=10&difficulty=" +
@@ -30,64 +30,28 @@ function start() {
   setTimeout(() => {
     const buttons = document.getElementsByTagName("button");
     for (var i = 0; i < buttons.length - 1; i++) {
-        let array = Array.from(buttons);
+      let array = Array.from(buttons);
       buttons[i].addEventListener("click", function () {
-          const answer1 = this;
+        const answer1 = this;
         const answer = this.innerHTML;
         console.log(answer);
-        for(let j = 0; j < 9; j++){
-            if(real.results[j].correct_answer == answer || real.results[j].incorrect_answers.includes(answer)){
-                 index = j;
-            }
+        for (let j = 0; j < 9; j++) {
+          if (
+            real.results[j].correct_answer == answer ||
+            real.results[j].incorrect_answers.includes(answer)
+          ) {
+            index = j;
+          }
         }
-        let indexbtn = array.indexOf(answer1) + 1;
+        indexbtn = array.indexOf(answer1) + 1;
         console.log(real.results[index].correct_answer);
         if (answer == real.results[index].correct_answer) {
-            score++;
-            this.classList.add("green");
-            if(indexbtn % 4 == 0){
-                buttons[indexbtn - 2].style.visibility = "hidden";
-                buttons[indexbtn - 3].style.visibility ="hidden";
-                buttons[indexbtn - 4].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 1){
-                buttons[indexbtn].style.visibility = "hidden";
-                buttons[indexbtn + 1].style.visibility ="hidden";
-                buttons[indexbtn + 2].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 2){
-                buttons[indexbtn - 2].style.visibility = "hidden";
-                buttons[indexbtn].style.visibility ="hidden";
-                buttons[indexbtn + 1].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 3){
-                buttons[indexbtn - 3].style.visibility = "hidden";
-                buttons[indexbtn - 2].style.visibility ="hidden";
-                buttons[indexbtn].style.visibility ="hidden";
-            }
-        
-        }else{
-            this.classList.add("red");
-            if(indexbtn % 4 == 0){
-                buttons[indexbtn - 2].style.visibility ="hidden";
-                buttons[indexbtn - 3].style.visibility ="hidden";
-                buttons[indexbtn].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 1){
-                buttons[indexbtn].style.visibility = "hidden";
-                buttons[indexbtn + 1].style.visibility ="hidden";
-                buttons[indexbtn + 2].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 2){
-                buttons[indexbtn - 2].style.visibility = "hidden";
-                buttons[indexbtn].style.visibility ="hidden";
-                buttons[indexbtn + 1].style.visibility ="hidden";
-            }
-            if(indexbtn % 4 == 3){
-                buttons[indexbtn - 3].style.visibility = "hidden";
-                buttons[indexbtn - 2].style.visibility ="hidden";
-                buttons[indexbtn].style.visibility ="hidden";
-            }
+          score++;
+          this.classList.add("green");
+          hide();
+        } else {
+          this.classList.add("red");
+          hide();
         }
       });
     }
@@ -109,15 +73,37 @@ function shuffle(array) {
 }
 
 window.onload = () => {
-    setInterval(() => {
-        green = document.getElementsByClassName("green")
-        red = document.getElementsByClassName("red")
-        if(green.length + red.length == 10){
-            document.getElementById("main").style.display = "none";
-            document.getElementById("userscore").innerHTML = score;
-            document.getElementById("score").style.visibility = "visible";
-        }
-    }, 20)
+  setInterval(() => {
+    green = document.getElementsByClassName("green");
+    red = document.getElementsByClassName("red");
+    if (green.length + red.length == 10) {
+      document.getElementById("main").style.display = "none";
+      document.getElementById("userscore").innerHTML = score;
+      document.getElementById("score").style.visibility = "visible";
+    }
+  }, 20);
+};
+
+function hide() {
+  const buttons = document.getElementsByTagName("button");
+  if (indexbtn % 4 == 0) {
+    buttons[indexbtn - 2].style.visibility = "hidden";
+    buttons[indexbtn - 3].style.visibility = "hidden";
+    buttons[indexbtn].style.visibility = "hidden";
+  }
+  if (indexbtn % 4 == 1) {
+    buttons[indexbtn].style.visibility = "hidden";
+    buttons[indexbtn + 1].style.visibility = "hidden";
+    buttons[indexbtn + 2].style.visibility = "hidden";
+  }
+  if (indexbtn % 4 == 2) {
+    buttons[indexbtn - 2].style.visibility = "hidden";
+    buttons[indexbtn].style.visibility = "hidden";
+    buttons[indexbtn + 1].style.visibility = "hidden";
+  }
+  if (indexbtn % 4 == 3) {
+    buttons[indexbtn - 3].style.visibility = "hidden";
+    buttons[indexbtn - 2].style.visibility = "hidden";
+    buttons[indexbtn].style.visibility = "hidden";
+  }
 }
-
-
