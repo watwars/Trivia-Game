@@ -77,9 +77,11 @@ window.onload = () => {
     green = document.getElementsByClassName("green");
     red = document.getElementsByClassName("red");
     if (green.length + red.length == 10) {
-      document.getElementById("main").style.display = "none";
-      document.getElementById("userscore").innerHTML = score;
-      document.getElementById("score").style.visibility = "visible";
+      setTimeout(() => {
+        document.getElementById("main").style.display = "none";
+        document.getElementById("userscore").innerHTML = score;
+        document.getElementById("score").style.visibility = "visible";
+      }, 200);
     }
   }, 20);
 };
@@ -87,9 +89,9 @@ window.onload = () => {
 function hide() {
   const buttons = document.getElementsByTagName("button");
   if (indexbtn % 4 == 0) {
+    buttons[indexbtn - 4].style.visibility = "hidden";
     buttons[indexbtn - 2].style.visibility = "hidden";
     buttons[indexbtn - 3].style.visibility = "hidden";
-    buttons[indexbtn].style.visibility = "hidden";
   }
   if (indexbtn % 4 == 1) {
     buttons[indexbtn].style.visibility = "hidden";
